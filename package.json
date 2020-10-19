@@ -1,0 +1,23 @@
+{
+  "name": "vue-ui-primary",
+  "version": "1.0.0",
+  "description": "primary-vue-ui",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrJ5678/vue-ui-primary.git"
+  },
+  "keywords": [
+    "vue",
+    "ui"
+  ],
+  "author": "hhhhhq",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MrJ5678/vue-ui-primary/issues"
+  },
+  "homepage": "https://github.com/MrJ5678/vue-ui-primary#readme"
+}
