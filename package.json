@@ -22,5 +22,8 @@
   "homepage": "https://github.com/MrJ5678/vue-ui-primary#readme",
   "dependencies": {
     "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
   }
 }
