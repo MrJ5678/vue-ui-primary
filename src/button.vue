@@ -8,7 +8,6 @@
   </button>
 </template>
 <script>
-import Icon from "./icon";
 
 export default {
   // props: ['icon', 'iconPosition'] // left/right
@@ -87,6 +86,7 @@ export default {
       order: 1;
     }
   }
+
   .loading {
     animation: spin 2s infinite linear;
   }
