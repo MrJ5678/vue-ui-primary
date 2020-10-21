@@ -6,6 +6,14 @@
 
 <script>
 export default {
+  mounted() {
+    for(let node of this.$el.children) {
+      let name = node.nodeName.toLowerCase()
+      if(name !== 'button') {
+        console.warn(`g-button-group的直接子元素应该为 g-button, 但是你写的是 ${name}`)
+      }
+    }
+  }
 }
 </script>
 
