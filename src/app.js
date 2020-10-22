@@ -22,6 +22,9 @@ new Vue({
 import chai from 'chai'
 const expect = chai.expect
 
+import spies from 'chai-spies'
+chai.use(spies)
+
 {
   const Constructor = Vue.extend(Button)
   const vm = new Constructor({
@@ -88,9 +91,9 @@ const expect = chai.expect
     icon: 'settings'
   })
   vm.$mount()
-  vm.$on('click', function() {
-    console.log(1)
-  })  
+  let spy = chai.spy(function() {})
+  vm.$on('click', spy)
   let button = vm.$el
   button.click()
+  expect(spy).to.have.been.called()
 }
