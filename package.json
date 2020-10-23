@@ -1,8 +1,8 @@
 {
   "name": "vue-ui-primary-1",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "primary-vue-ui",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev-test": "parcel watch test/* --no-cache & karma start",
     "dev": "parcel --no-cache index.html",
