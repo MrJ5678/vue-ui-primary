@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'UiButtonGroup',
   mounted() {
     for(let node of this.$el.children) {
       let name = node.nodeName.toLowerCase()

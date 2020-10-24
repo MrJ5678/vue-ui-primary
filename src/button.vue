@@ -11,6 +11,7 @@
 import Icon from './icon'
 
 export default {
+  name: 'UiButton',
   components: {
     'g-icon': Icon
   },
@@ -35,7 +36,7 @@ export default {
   methods: {}
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @keyframes spin {
   0% {
     transform: rotate(0deg);

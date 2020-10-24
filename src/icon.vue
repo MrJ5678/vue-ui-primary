@@ -8,6 +8,7 @@
 import './svg'
 
 export default {
+  name: 'UiIcon',
   props: {
     name: {
       type: String,
