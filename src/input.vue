@@ -1,8 +1,17 @@
 <template>
   <div class="wrapper" :class="{'error': error}">
-    <input type="text" :value="value" :disabled="disabled" :readonly="readonly">
+    <input
+      type="text"
+      :value="value"
+      :disabled="disabled"
+      :readonly="readonly"
+      @change="$emit('change', $event)"
+      @input="$emit('input', $event)"
+      @focus="$emit('focus', $event)"
+      @blur="$emit('blur', $event)"
+    >
     <template v-if="error">
-      <icon name="info" class="error-icon"></icon>
+      <icon name="error" class="error-icon"></icon>
       <span class="error-content">{{ error }}</span>
     </template>
   </div>
@@ -36,18 +45,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$height: 32px;  $border-color: #999;  $border-color-hover: #666;  $border-radius: 4px;  $font-size: 12px;  $box-shadow-color: rgba(0, 0, 0, .5);  $red: #f1453d;
+$height: 32px;
+$border-color: #999;
+$border-color-hover: #666;
+$border-radius: 4px;
+$font-size: 12px;
+$box-shadow-color: rgba(0, 0, 0, .5);
+$red: #f1453d;
 .wrapper {display: inline-flex;justify-content: center;align-items: center;font-size: $font-size;
+
   :not(:last-child) { margin-right: .5em; }
+
   > input {height: $height;padding: 0 8px;font-size: inherit;border: 1px solid $border-color;border-radius: $border-radius;
+
     &:hover {border-color: $border-color-hover;}
+
     &:focus {box-shadow: inset 0 1px 3px $box-shadow-color;outline: none;}
+
     &[disabled],
-    &[readonly]{border-color: #aaa;color: #aaa;cursor: not-allowed;}
+    &[readonly] {border-color: #aaa;color: #aaa;cursor: not-allowed;}
   }
+
   &.error {
     > input {border-color: $red;}
+
     .error-icon { fill: $red; font-weight: bold; }
+
     .error-content {color: $red;}
   }
 }
