@@ -15,6 +15,14 @@ let validator = (value) => {
   })
   return true
 }
+
+let createClasses = (obj, str = '') => {
+  let array = []
+  if(!obj) { return [] }
+  if(obj.span) {array.push(`col-${str}${obj.span}`)}
+  if(obj.offset) {array.push(`offset-${str}${obj.offset}`)}
+  return array
+}
 export default {
   name: 'GCol',
   props: {
@@ -37,15 +45,13 @@ export default {
   computed: {
     colClasses() {
       let {span, offset, pad, narrowPc, pc, widePc} = this
-      // let phoneClass = []
 
       return [
-        span && `col-${span}`,
-        offset && `offset-${offset}`,
-        ...(pad ? [`col-pad-${pad.span}`] : []),
-        ...(narrowPc ? [`col-narrow-pc-${narrowPc.span}`] : []),
-        ...(pc ? [`col-pc-${pc.span}`] : []),
-        ...(widePc ? [`col-wide-pc-${widePc.span}`] : []),
+        ...createClasses({span, offset}),
+        ...createClasses(pad, 'pad-'),
+        ...createClasses(narrowPc, 'narrow-pc-'),
+        ...createClasses(pc, 'pc-'),
+        ...createClasses(widePc, 'wide-pc-')
       ]
     },
     colStyle() {
