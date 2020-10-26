@@ -33,58 +33,31 @@
     .box {margin: 20px 0;}
   </style>
   <style>
-    .demo-box {
-      min-height: 50px;
-      background-color: grey;
-      border: 1px solid red;
-    }
-
-    .logo-wrapper {
-      display: flex;
-      justify-content: center;
-    }
-
-    img { max-width: 100% }
-    .logo-wrapper {padding: 10px;}
+    .demo { background-color: #ddd; border: 1px solid #666666; height: 100px;}
   </style>
 </head>
 <body>
 <div id="app">
-  <div style="border: 1px solid black">
-    <g-row gutter="20">
-      <g-col>1</g-col>
-      <g-col>2</g-col>
-    </g-row>
-
-    <g-row gutter="20">
-      <g-col>1</g-col>
-      <g-col>2</g-col>
-      <g-col>3</g-col>
-    </g-row>
-
-    <g-row gutter="20">
-      <g-col>1</g-col>
-      <g-col>2</g-col>
-      <g-col>3</g-col>
-      <g-col>4</g-col>
-    </g-row>
-
-    <g-row gutter="20">
-      <g-col span="2">1</g-col>
-      <g-col span="22">2</g-col>
-    </g-row>
-
-    <g-row gutter="20">
-      <g-col span="4">1</g-col>
-      <g-col span="20">2</g-col>
-    </g-row>
-
-    <g-row gutter="20">
-      <g-col span="2">1</g-col>
-      <g-col span="20" offset="2">2</g-col>
-    </g-row>
-  </div>
-
+  <g-row>
+    <g-col span="24" :pad="{span: 12}" :narrow-pc="{span: 8}">
+      <div class="demo"></div>
+    </g-col>
+    <g-col span="24" :pad="{span: 12}" :narrow-pc="{span: 8}">
+      <div class="demo"></div>
+    </g-col>
+    <g-col span="24" :pad="{span: 12}" :narrow-pc="{span: 8}">
+      <div class="demo"></div>
+    </g-col>
+    <g-col span="24" :pad="{span: 12}" :narrow-pc="{span: 8}">
+      <div class="demo"></div>
+    </g-col>
+    <g-col span="24" :pad="{span: 12}" :narrow-pc="{span: 8}">
+      <div class="demo"></div>
+    </g-col>
+    <g-col span="24" :pad="{span: 12}" :narrow-pc="{span: 8}">
+      <div class="demo"></div>
+    </g-col>
+  </g-row>
   <hr>
   <div class="box">
     <g-input value="张三"></g-input>
