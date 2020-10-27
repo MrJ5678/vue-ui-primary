@@ -6,10 +6,12 @@
 
 <script>
 export default {
-  name: ""
+  name: "GContent"
 }
 </script>
 
 <style scoped>
-.content {}
+.content {
+  flex-grow: 1;
+}
 </style>
