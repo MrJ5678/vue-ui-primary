@@ -89,8 +89,13 @@ $font-size: 14px;
 $toast-min-height: 40px;
 $toast-bg: rgba(0, 0, 0, .75);
 $border-radius: 4px;
+@keyframes fade-in {
+  0% {opacity: 0; transform: translateY(100%);}
+  100% {opacity: 1; transform: translateY(0%);}
+}
 
 .toast {
+  animation: fade-in 1s;
   position: fixed;padding: 0 16px;min-height: $toast-min-height;font-size: $font-size;line-height: 1.8;display: flex;align-items: center;background-color: $toast-bg;border-radius: $border-radius;color: #fff;box-shadow: 0 0 3px rgba(0, 0, 0, .5);
   left: 50%;
   .message { padding: 8px 0; }
