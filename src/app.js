@@ -38,7 +38,16 @@ new Vue({
     }
   },
   methods: {
-    showToast() {
+    showToast1() {
+      this.showToast('top')
+    },
+    showToast2() {
+      this.showToast('middle')
+    },
+    showToast3() {
+      this.showToast('bottom')
+    },
+    showToast(position) {
       this.$toast('单行文字，完', {
         closeButton: {
           text: '知道了',
@@ -49,8 +58,8 @@ new Vue({
         },
         enableHtml: false,
         autoClose: true,
-        autoCloseDelay: 3,
-        position: 'bottom'
+        autoCloseDelay: 20,
+        position
       })
     }
   }
