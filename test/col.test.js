@@ -91,5 +91,21 @@ describe('Row', () => {
       vm.$el.remove()
       vm.$destroy()
     })
+
+    it('可以传 pc object', () => {
+      const Construtor = Vue.extend(Col)
+      const div = document.createElement('div')
+      document.body.appendChild(div)
+      const vm = new Construtor({
+        propsData: {
+          pc: {span: 1, offset: 2}
+        }
+      }).$mount(div)
+      const element = vm.$el
+      expect(vm.$el.classList.contains('col-pc-1')).to.eq(true)
+      expect(vm.$el.classList.contains('offset-pc-2')).to.eq(true)
+      vm.$el.remove()
+      vm.$destroy()
+    })
   })
 })

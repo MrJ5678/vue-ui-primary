@@ -19,12 +19,11 @@ export default {
   name: "GToast",
   props: {
     autoClose: {
-      type: Boolean,
-      default: true
-    },
-    autoCloseDelay: {
-      type: Number,
-      default: 20
+      type: [Number, Boolean],
+      default: 5,
+      validator(value) {
+        return value === false || typeof value === 'number';
+      }
     },
     closeButton: {
       type: Object,
@@ -61,13 +60,14 @@ export default {
       if(this.autoClose) {
         setTimeout(() => {
           this.close()
-        }, this.autoCloseDelay * 1000)
+        }, this.autoClose * 1000)
       }
     },
     updateStyles() {
       this.$nextTick(() => {
         // console.log(this.$refs.wrapper.getBoundingClientRect())
-        this.$refs.line.style.height = this.$refs.toast.getBoundingClientRect().height + 'px'
+        // console.log(this.$refs.line)
+        this.$refs.line.style.height = `${this.$refs.toast.getBoundingClientRect().height}px`
       })
     },
     close() {
@@ -139,7 +139,6 @@ $animation-duration: .3s;
   }
   .line {
     margin-left: 16px;
-    height: 100%;
     border-left: 1px solid #666;
   }
 }

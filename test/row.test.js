@@ -42,10 +42,10 @@ describe('Row', () => {
     })
 
     it('可以传 align', () => {
-      const Construtor = Vue.extend(Row)
+      const Constructor = Vue.extend(Row)
       const div = document.createElement('div')
       document.body.appendChild(div)
-      const vm = new Construtor({
+      const vm = new Constructor({
         propsData: {
           align: 'left'
         }
