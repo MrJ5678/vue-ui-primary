@@ -9,17 +9,28 @@
       padding: 0;
       box-sizing: border-box;
     }
-
   </style>
-
-  <style>
-</style>
 </head>
 <body>
 <div id="app">
-  <button @click="showToast1">从top弹出</button>
-  <button @click="showToast2">从middle弹出</button>
-  <button @click="showToast3">从bottom弹出</button>
+  <g-tabs :selected.sync="seletedTab">
+    <g-tabs-head>
+      <template slot="actions">
+        <button>tabs 按钮</button>
+      </template>
+      <g-tabs-item name="vue">
+        <g-icon name="settings"></g-icon>
+        vue
+      </g-tabs-item>
+      <g-tabs-item name="react" disabled>react</g-tabs-item>
+      <g-tabs-item name="angular">angular</g-tabs-item>
+    </g-tabs-head>
+    <g-tabs-body>
+      <g-tabs-pane name="vue">vue文档</g-tabs-pane>
+      <g-tabs-pane name="react">react文档</g-tabs-pane>
+      <g-tabs-pane name="angular">angular文档</g-tabs-pane>
+    </g-tabs-body>
+  </g-tabs>
 </div>
 <script src="./src/app.js"></script>
 <!--<script src="//at.alicdn.com/t/font_2146072_1zleacjbviu.js"></script>-->
