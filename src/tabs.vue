@@ -34,6 +34,9 @@ export default {
     }
   },
   mounted() {
+    if(this.$children.length === 0) {
+      console && console.warn && console.warn('tabs 没有子组件，应该且只能是 tabs-head 和 tabs-body 组件')
+    }
     // this.$nextTick(() => {
     //   this.eventBus.$emit('update:selected', 'this eventBus $emit 出来的数据')
     // })
