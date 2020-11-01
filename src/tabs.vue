@@ -37,7 +37,16 @@ export default {
     // this.$nextTick(() => {
     //   this.eventBus.$emit('update:selected', 'this eventBus $emit 出来的数据')
     // })
-    this.eventBus.$emit('update:selected', this.selected)
+    this.$children.forEach((vm) => {
+      if(vm.$options.name === 'GTabsHead') {
+        vm.$children.forEach((childVm) => {
+          if(childVm.$options.name === 'GTabsItem' && childVm.name === this.selected) {
+            console.log(childVm.$el)
+            this.eventBus.$emit('update:selected', this.selected, childVm)
+          }
+        })
+      }
+    })
   }
 }
 </script>
