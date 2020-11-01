@@ -12,10 +12,12 @@
 export default {
   name: "GTabsHead",
   inject: ['eventBus'],
-  created() {
+  mounted() {
     this.eventBus.$on('update:selected', (item, vm) => {
-      console.log(item);
-      console.log(vm.$el.getBoundingClientRect());
+      let {width, height, top, left} = vm.$el.getBoundingClientRect()
+      console.log(width, height, top, left)
+      this.$refs.line.style.width = `${width}px`
+      this.$refs.line.style.transform = `translateX(${left}px)`
     })
   },
 }
@@ -30,12 +32,11 @@ $blue: #1890ff;
   display: flex;
   height: $tab-height;
   justify-content: flex-start;
-  border: 1px solid red;
   > .line {
     position: absolute;
     bottom: 0;
-    width: 100px;
     border-bottom: 1px solid $blue;
+    transition: all .3s;
   }
 
   .actions-wrapper { margin-left: auto; }

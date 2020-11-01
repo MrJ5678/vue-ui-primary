@@ -41,7 +41,7 @@ export default {
       if(vm.$options.name === 'GTabsHead') {
         vm.$children.forEach((childVm) => {
           if(childVm.$options.name === 'GTabsItem' && childVm.name === this.selected) {
-            console.log(childVm.$el)
+            // console.log(childVm.$el)
             this.eventBus.$emit('update:selected', this.selected, childVm)
           }
         })
