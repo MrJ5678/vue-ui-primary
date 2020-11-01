@@ -5,6 +5,9 @@
 </template>
 
 <script>
+import Vue from 'vue'
+
+
 export default {
   name: "GTabs",
   props: {
@@ -20,8 +23,21 @@ export default {
       }
     }
   },
-  created() {
-    this.$emit('update:selected', 'xxx')
+  data() {
+    return {
+      eventBus: new Vue()
+    }
+  },
+  provide() {
+    return {
+      eventBus: this.eventBus
+    }
+  },
+  mounted() {
+    // this.$nextTick(() => {
+    //   this.eventBus.$emit('update:selected', 'this eventBus $emit 出来的数据')
+    // })
+    this.eventBus.$emit('update:selected', this.selected)
   }
 }
 </script>

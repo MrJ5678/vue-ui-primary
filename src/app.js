@@ -43,5 +43,11 @@ new Vue({
     return {
       selectedTab: 'vue'
     }
+  },
+  methods: {
+    yyy(data) {
+      console.log('yyy')
+      console.log(data)
+    }
   }
 })

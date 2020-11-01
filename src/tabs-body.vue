@@ -6,7 +6,8 @@
 
 <script>
 export default {
-  name: "GTabsBody"
+  name: "GTabsBody",
+  inject: ['eventBus'],
 }
 </script>
 
