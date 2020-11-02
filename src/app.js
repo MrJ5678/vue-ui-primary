@@ -41,4 +41,8 @@ Vue.component('g-popover', Popover)
 
 new Vue({
   el: '#app',
+  methods: {
+    yyy() {
+      console.log('yyy')}
+  }
 })
