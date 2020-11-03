@@ -11,17 +11,27 @@
     }
   </style>
   <style>
+    :root {
+      --button-height: 32px;
+      --font-size: 14px;
+      --button-bg: #fff;
+      --button-activebg: #eee;
+      --border-radius: 4px;
+      --color: #333;
+      --border-color: #999;
+      --border-color-hover: #666;
+    }
   </style>
 </head>
 <body>
-<div id="app" style="padding-top: 100px;padding-left: 100px;border: 1px solid red;">
-  <div style="overflow: hidden; border: 1px solid green;" @click="yyy">
+<div id="app">
+  <div style="overflow: hidden; padding: 210px;">
     <g-popover>
       <template slot="content">
-        <div>content</div>
+        <div>content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容</div>
       </template>
       <template>
-        <button>按钮</button>
+        <g-button>按钮</g-button>
       </template>
     </g-popover>
     <g-popover>
@@ -29,7 +39,7 @@
         <div>content</div>
       </template>
       <template>
-        <button>按钮</button>
+        <g-button>按钮</g-button>
       </template>
     </g-popover>
   </div>
