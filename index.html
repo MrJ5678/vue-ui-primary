@@ -26,15 +26,7 @@
 <body>
 <div id="app">
   <div style="overflow: hidden; padding: 210px;">
-    <g-popover>
-      <template slot="content">
-        <div>content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容content内容</div>
-      </template>
-      <template>
-        <g-button>按钮</g-button>
-      </template>
-    </g-popover>
-    <g-popover>
+    <g-popover position="left">
       <template slot="content">
         <div>content</div>
       </template>
@@ -42,6 +34,31 @@
         <g-button>按钮</g-button>
       </template>
     </g-popover>
+    <g-popover position="top">
+      <template slot="content">
+        <div>content</div>
+      </template>
+      <template>
+        <g-button>按钮</g-button>
+      </template>
+    </g-popover>
+    <g-popover position="bottom">
+      <template slot="content">
+        <div>content</div>
+      </template>
+      <template>
+        <g-button>按钮</g-button>
+      </template>
+    </g-popover>
+    <g-popover position="right">
+      <template slot="content">
+        <div>content</div>
+      </template>
+      <template>
+        <g-button>按钮</g-button>
+      </template>
+    </g-popover>
+
   </div>
 </div>
 <script src="./src/app.js"></script>
