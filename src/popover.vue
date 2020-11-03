@@ -28,11 +28,8 @@ export default {
       if(this.$refs.popover &&
           (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
         return true
-      } else {
-        this.visible = false
-        console.log('关闭2')
-        document.removeEventListener('click', this.onClickDocument)
       }
+      this.close()
     },
     open() {
       this.visible = true
@@ -48,7 +45,7 @@ export default {
     onClick(event) {
       if(this.$refs.triggerWrapper.contains(event.target)) {
         if(this.visible === true) {
-          console.log('关闭1')
+          // console.log('关闭1')
           this.close()
         } else {
           this.open()
