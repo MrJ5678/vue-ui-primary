@@ -37,6 +37,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "var";
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -51,20 +53,20 @@ export default {
   justify-content: center;
   align-items: center;
   vertical-align: middle;
-  height: var(--button-height);
+  height: $button-height;
   padding: 0 1em;
   font: inherit;
-  font-size: var(--font-size);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--button-bg);
+  font-size: $font-size;
+  border-radius: $border-radius;
+  border: 1px solid $border-color;
+  background-color: $button-bg;
 
   &:hover {
-    border-color: var(--border-color-hover);
+    border-color: $border-color-hover;
   }
 
   &:active {
-    background-color: var(--button-activebg);
+    background-color: $button-active-bg;
   }
 
   &:focus {
