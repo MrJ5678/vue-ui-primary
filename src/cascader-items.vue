@@ -13,8 +13,13 @@
 </template>
 
 <script>
+import Icon from './icon'
+
 export default {
   name: "GCascaderItems",
+  components: {
+    'g-icon': Icon
+  },
   props: {
     items: {
       type: Array
