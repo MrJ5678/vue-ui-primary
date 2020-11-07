@@ -1,12 +1,11 @@
-import Vue from 'vue'
 // import ButtonGroup from './button-group'
 // import Col from './col'
 // import Content from './content'
 // import Footer from './footer'
 // import Header from './header'
-// import Icon from './icon'
 // import Input from './input'
 // import Layout from './layout'
+// import plugin from "./plugin";
 // import Popover from './popover'
 // import Row from './row'
 // import Sider from './sider'
@@ -16,18 +15,18 @@ import Vue from 'vue'
 // import TabsItem from './tabs-item';
 // import TabsPane from './tabs-pane';
 // import Toast from './toast'
-// import plugin from "./plugin";
 import Button from './button'
 import Cascader from './cascader'
 import Collapse from './collapse'
 import CollapseItem from './collapse-item'
+import Icon from './icon'
+import Vue from 'vue'
 
 // Vue.component('g-button-group', ButtonGroup)
 // Vue.component('g-col', Col)
 // Vue.component('g-content', Content)
 // Vue.component('g-footer', Footer)
 // Vue.component('g-header', Header)
-// Vue.component('g-icon', Icon)
 // Vue.component('g-input', Input)
 // Vue.component('g-layout', Layout)
 // Vue.component('g-popover', Popover)
@@ -39,11 +38,12 @@ import CollapseItem from './collapse-item'
 // Vue.component('g-tabs-item', TabsItem)
 // Vue.component('g-tabs-pane', TabsPane)
 // Vue.component('g-toast', Toast)
+// Vue.use(plugin)
 Vue.component('g-button', Button)
 Vue.component('g-cascader', Cascader)
 Vue.component('g-collapse', Collapse)
 Vue.component('g-collapse-item', CollapseItem)
-// Vue.use(plugin)
+Vue.component('g-icon', Icon)
 
 new Vue({
   el: '#app',
