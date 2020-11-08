@@ -65,7 +65,7 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   //height: 100px;
-  .left { height: 100%;padding: .3em 0; }
+  .left { height: 100%;padding: .3em 0; overflow: auto; }
 
   .right { height: 100%; border-left: 1px solid $border-color-light; }
   .label { padding: .3em 1em;display: flex;align-items: center; justify-content: space-between;
