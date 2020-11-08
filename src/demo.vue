@@ -1,6 +1,7 @@
 <template>
   <div>
-    <g-cascader :source="source" popover-height="200px"></g-cascader>
+    <div>{{ selected }}</div>
+    <g-cascader :source="source" popover-height="200px" :selected.sync="selected" @update:selected="selected = $event"></g-cascader>
     <p>111</p>
   </div>
 </template>
@@ -73,8 +74,8 @@ export default {
             },
           ]
         }
-
-      ]
+      ],
+      selected: []
     }
   }
 
@@ -93,6 +94,7 @@ html, body {
   width: 100%;
   --font-size: 14px;
 }
+
 body {
   font-size: var(--font-size);
 }
