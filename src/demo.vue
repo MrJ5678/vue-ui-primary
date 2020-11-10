@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div>{{ selected }}</div>
+<!--    <div>{{ selected && selected[0].name }}</div>-->
     <div style="padding: 20px;">
-      <g-cascader :source="source" popover-height="200px" :selected.sync="selected"></g-cascader>
+      <g-cascader :source.sync="source" popover-height="200px" :selected.sync="selected" :load-data="loadData"></g-cascader>
     </div>
   </div>
 </template>
@@ -11,11 +11,22 @@
 import Cascader from './cascader'
 import db from './db'
 
-function ajax(parentId = 0) {
-  return db.filter(item => item.parent_id === parentId)
-}
+// function ajax(parentId = 0, success, fail) {
+//   let timerId = setTimeout(() => {
+//     let result = db.filter(item => item.parent_id === parentId)
+//     success(result)
+//   }, 3000)
+//   return timerId
+// }
 
-console.log(ajax())
+function ajax(parentId = 0) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let result = db.filter(item => item.parent_id === parentId)
+      resolve(result)
+    }, 300)
+  })
+}
 
 export default {
   name: "Demo",
@@ -24,11 +35,32 @@ export default {
   },
   data() {
     return {
-      source: ajax(),
+      source: [],
       selected: []
     }
+  },
+  created() {
+    ajax(0).then(result => {
+      this.source = result
+    })
+  },
+  methods: {
+    loadData(clickedNode, updateSource) {
+      // console.log(node)
+      let { id } = clickedNode
+      ajax(id).then(result => {
+        updateSource(result)
+      })
+    },
+    xxx() {
+      // console.log(this.selected)
+      ajax(this.selected[0].id).then(result => {
+        let lastLevelSelected = this.source.filter(item => this.selected[0].id === item.id)[0]
+        this.$set(lastLevelSelected, 'children', result)
+        console.log(lastLevelSelected)
+      })
+    }
   }
-
 };
 </script>
 

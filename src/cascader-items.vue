@@ -38,9 +38,11 @@ export default {
   },
   computed: {
     rightItems() {
-      let currentSelected = this.selected[this.level]
-      if(currentSelected && currentSelected.children) {
-        return currentSelected.children
+      if(this.selected[this.level]) {
+        let item = this.items.filter(item => item.name === this.selected[this.level].name)[0]
+        if(item && item.children && item.children.length > 0) {
+          return item.children
+        }
       }
     }
   },
