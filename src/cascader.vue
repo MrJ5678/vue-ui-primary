@@ -97,6 +97,7 @@ export default {
 @import "var";
 
 .cascader {
+  display: inline-block;
   position: relative;
   height: $input-height;
   .trigger {

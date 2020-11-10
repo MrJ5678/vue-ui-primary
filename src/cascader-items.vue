@@ -76,7 +76,7 @@ export default {
   .left { height: 100%;padding: .3em 0; overflow: auto; }
 
   .right { height: 100%; border-left: 1px solid $border-color-light; }
-  .label { padding: .5em 1em;display: flex;align-items: center;
+  .label { padding: .5em 1em;display: flex;align-items: center;white-space: nowrap;
     &:hover { background-color: $grey; user-select: none; cursor: pointer; }
     > .name { margin-right: 1em; }
     .icon { margin-left: auto; transform: scale(.7)}
