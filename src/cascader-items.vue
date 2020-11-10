@@ -2,12 +2,12 @@
   <div class="cascader-item" :style="{height: height}">
     <div class="left">
       <div class="label" v-for="item in items" @click="onClickLabel(item)">
-        {{ item.name }}
-        <g-icon class="icon" v-if="item.children" name="right"></g-icon>
+        <span class="name">{{ item.name }}</span>
+        <g-icon class="icon" v-if="rightArrowVisible(item)" name="right"></g-icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <g-cascader-items :items="rightItems" :height="height" :level="level + 1" :selected="selected" @update:selected="onUpdateSelected"></g-cascader-items>
+      <g-cascader-items :items="rightItems" :height="height" :level="level + 1" :selected="selected" @update:selected="onUpdateSelected" :loadData="loadData"></g-cascader-items>
     </div>
   </div>
 </template>
@@ -34,6 +34,9 @@ export default {
     level: {
       type: Number,
       default: 0
+    },
+    loadData: {
+      type: Function
     }
   },
   computed: {
@@ -47,6 +50,9 @@ export default {
     }
   },
   methods: {
+    rightArrowVisible(item) {
+      return this.loadData ? !item.isLeaf : item.children
+    },
     onClickLabel(item) {
       let copy = JSON.parse(JSON.stringify(this.selected))
       copy[this.level] = item
@@ -70,8 +76,10 @@ export default {
   .left { height: 100%;padding: .3em 0; overflow: auto; }
 
   .right { height: 100%; border-left: 1px solid $border-color-light; }
-  .label { padding: .3em 1em;display: flex;align-items: center; justify-content: space-between;
-    .icon { margin-left: 1em; transform: scale(.7)}
+  .label { padding: .5em 1em;display: flex;align-items: center;
+    &:hover { background-color: $grey; user-select: none; cursor: pointer; }
+    > .name { margin-right: 1em; }
+    .icon { margin-left: auto; transform: scale(.7)}
   }
 }
 </style>

@@ -4,7 +4,7 @@
       {{ result || '&nbsp;' }}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
-      <cascader-items :items="source" class="popover" :height="popoverHeight" :selected="selected" @update:selected="onUpdateSelected"></cascader-items>
+      <cascader-items :items="source" class="popover" :height="popoverHeight" :selected="selected" @update:selected="onUpdateSelected" :loadData="loadData"></cascader-items>
     </div>
   </div>
 </template>
@@ -85,7 +85,9 @@ export default {
         toUpdate.children = result
         this.$emit('update:source', copy)
       }
-      this.loadData(clickedNode, updateSource) // 回调 调用组件使用者传给组件的函数
+      if(!clickedNode.isLeaf) {
+        this.loadData && this.loadData(clickedNode, updateSource) // 回调 调用组件使用者传给组件的函数
+      }
     }
   }
 }
