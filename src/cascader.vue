@@ -1,6 +1,6 @@
 <template>
-  <div class="cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">
+  <div class="cascader" v-click-outside="close">
+    <div class="trigger" @click="toggle">
       {{ result || '&nbsp;' }}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
@@ -11,9 +11,11 @@
 
 <script>
 import CascaderItems from './cascader-items'
+import ClickOutside  from './click-outside'
 
 export default {
   name: "GCascader",
+  directives: { ClickOutside },
   components: { CascaderItems },
   props: {
     source: {
@@ -41,6 +43,20 @@ export default {
     }
   },
   methods: {
+    close() {
+      console.log('close')
+      this.popoverVisible = false
+    },
+    open() {
+      this.popoverVisible = true
+    },
+    toggle() {
+      if(this.popoverVisible) {
+        this.close()
+      } else {
+        this.open()
+      }
+    },
     onUpdateSelected(newSelected) {
       this.$emit('update:selected', newSelected)
       let clickedNode = newSelected[newSelected.length - 1]

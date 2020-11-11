@@ -10,6 +10,7 @@
 <script>
 import Cascader from './cascader'
 import db from './db'
+import { removeListener } from "@/click-outside";
 
 // function ajax(parentId = 0, success, fail) {
 //   let timerId = setTimeout(() => {
