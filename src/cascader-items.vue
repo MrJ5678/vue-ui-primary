@@ -3,11 +3,18 @@
     <div class="left">
       <div class="label" v-for="item in items" @click="onClickLabel(item)">
         <span class="name">{{ item.name }}</span>
-        <g-icon class="icon" v-if="rightArrowVisible(item)" name="right"></g-icon>
+        <span class="icons">
+          <template v-if="item.name === loadingItem.name">
+            <g-icon class="loading" name="loading"></g-icon>
+          </template>
+          <template v-else>
+            <g-icon class="next" v-if="rightArrowVisible(item)" name="right"></g-icon>
+          </template>
+        </span>
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <g-cascader-items :items="rightItems" :height="height" :level="level + 1" :selected="selected" @update:selected="onUpdateSelected" :loadData="loadData"></g-cascader-items>
+      <g-cascader-items :items="rightItems" :height="height" :level="level + 1" :selected="selected" @update:selected="onUpdateSelected" :load-data="loadData" :loading-item="loadingItem"></g-cascader-items>
     </div>
   </div>
 </template>
@@ -37,6 +44,10 @@ export default {
     },
     loadData: {
       type: Function
+    },
+    loadingItem: {
+      type: Object,
+      default: () => ({})
     }
   },
   computed: {
@@ -79,7 +90,10 @@ export default {
   .label { padding: .5em 1em;display: flex;align-items: center;white-space: nowrap;
     &:hover { background-color: $grey; user-select: none; cursor: pointer; }
     > .name { margin-right: 1em; }
-    .icon { margin-left: auto; transform: scale(.7)}
+    .icons {display: flex;align-items: center; margin-left: auto;}
+    .next { transform: scale(.7); }
+    .loading {animation: spin 2s infinite linear;}
   }
 }
+
 </style>

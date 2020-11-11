@@ -1,6 +1,6 @@
 <template>
   <div>
-<!--    <div>{{ selected && selected[0].name }}</div>-->
+    <div>{{ selected }}</div>
     <div style="padding: 20px;">
       <g-cascader :source.sync="source" popover-height="200px" :selected.sync="selected" :load-data="loadData"></g-cascader>
     </div>

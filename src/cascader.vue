@@ -4,7 +4,7 @@
       {{ result || '&nbsp;' }}
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
-      <cascader-items :items="source" class="popover" :height="popoverHeight" :selected="selected" @update:selected="onUpdateSelected" :loadData="loadData"></cascader-items>
+      <cascader-items :items="source" class="popover" :height="popoverHeight" :selected="selected" @update:selected="onUpdateSelected" :load-data="loadData" :loading-item="loadingItem"></cascader-items>
     </div>
   </div>
 </template>
@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       popoverVisible: false,
+      loadingItem: {},
     }
   },
   computed: {
@@ -96,13 +97,15 @@ export default {
       let updateSource = (result) => {
       //   console.log(JSON.stringify(this.source))
       //   console.log(clickedNode.id)
+        this.loadingItem = {}
         let copy = JSON.parse(JSON.stringify(this.source))
         let toUpdate = complex(copy, clickedNode.id)
         toUpdate.children = result
         this.$emit('update:source', copy)
       }
-      if(!clickedNode.isLeaf) {
-        this.loadData && this.loadData(clickedNode, updateSource) // 回调 调用组件使用者传给组件的函数
+      if (!clickedNode.isLeaf && this.loadData) {
+        this.loadData(clickedNode, updateSource) // 回调 调用组件使用者传给组件的函数
+        this.loadingItem = clickedNode
       }
     }
   }
@@ -129,6 +132,7 @@ export default {
   .popover-wrapper {
     position: absolute;top: 100%;left: 0;margin-top: 8px; display: flex;
     /*height: 200px;//border: 2px solid green;*/background-color: #fff;
+    z-index: 1;
     @extend .box-shadow;
     .label {
       white-space: nowrap;
