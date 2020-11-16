@@ -12,16 +12,27 @@
       </div>
     </div>
     <div class="slides-dots">
+      <span @click="onClickPrev">
+        <g-icon name="left"></g-icon>
+      </span>
       <span v-for="n in childrenLength" :class="{active: selectedIndex === n - 1}" @click="select(n-1)">
         {{ n }}
+      </span>
+      <span @click="onClickNext">
+        <g-icon name="right"></g-icon>
       </span>
     </div>
   </div>
 </template>
 
 <script>
+import Icon from './icon'
+
 export default {
   name: "GSlides",
+  components: {
+    'g-icon': Icon
+  },
   props: {
     selected: {
       type: String
@@ -41,30 +52,41 @@ export default {
   },
   computed: {
     names() {
-       return this.$children.map(vm => vm.name)
+       return this.items.map(vm => vm.name)
     },
     selectedIndex() {
       return !this.selected ? 0 : this.names.indexOf(this.selected);
-    }
+    },
+    items() {
+      return this.$children.filter(vm => vm.$options.name === 'GSlideItem')
+    },
   },
   mounted() {
     this.updateChildren()
     this.playAutomatically()
-    this.childrenLength = this.$children.length
+    this.childrenLength = this.items.length
   },
   updated() {
     this.updateChildren()
   },
   methods: {
+    onClickPrev() {
+      // console.log('prev')
+      this.select(this.selectedIndex - 1)
+    },
+    onClickNext() {
+      // console.log('next')
+      this.select(this.selectedIndex + 1)
+    },
     onTouchStart(e) {
       this.pause()
-      console.log('摸')
+      // console.log('摸')
       if(e.touches.length > 1) { return true}
       // console.log(e.touches[0])
       this.startTouch = e.touches[0]
     },
     onTouchMove() {
-      console.log('边摸边动')
+      // console.log('边摸边动')
     },
     onTouchEnd(e) {
       // console.log(e.changedTouches[0]);
@@ -77,16 +99,16 @@ export default {
       let deltaY = Math.abs(y2 - y1)
       let rate = distance / deltaY
       if(rate > 2) {
-        console.log('检测到用户在左右滑')
+        // console.log('检测到用户在左右滑')
         if(endTouch.clientX > this.startTouch.clientX) {
-          console.log('检测为右滑')
+          // console.log('检测为右滑')
           this.select(this.selectedIndex - 1)
         } else {
-          console.log('检测为左滑')
+          // console.log('检测为左滑')
           this.select(this.selectedIndex + 1)
         }
       }
-      console.log('摸完了')
+      // console.log('摸完了')
       this.$nextTick(() => {
         this.playAutomatically()
       })
@@ -119,18 +141,18 @@ export default {
       this.timerId = undefined
     },
     getSelected() {
-      let first = this.$children[0]
+      let first = this.items[0]
       return this.selected || first.name
     },
     updateChildren() {
       let selected = this.getSelected()
       let reverse = this.selectedIndex <= this.lastSelectedIndex
-      this.$children.forEach(vm => {
+      this.items.forEach(vm => {
         if(this.timerId) {
-          if(this.lastSelectedIndex === this.$children.length - 1 && this.selectedIndex === 0) {
+          if(this.lastSelectedIndex === this.items.length - 1 && this.selectedIndex === 0) {
             reverse = false
           }
-          if(this.lastSelectedIndex === 0 && this.selectedIndex === this.$children.length - 1) {
+          if(this.lastSelectedIndex === 0 && this.selectedIndex === this.items.length - 1) {
             reverse = true
           }
         }
