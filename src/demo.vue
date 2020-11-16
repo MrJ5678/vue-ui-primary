@@ -57,9 +57,12 @@ body {
 }
 
 .box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
   width: 100%;
   height: 150px;
   background-color: #ddd;
-  border: 1px solid red;
 }
 </style>
