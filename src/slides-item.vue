@@ -47,22 +47,18 @@ export default {
 }
 
 .slide-enter {
-  opacity: 0;
   transform: translateX(100%);
 }
 
 .slide-enter.reverse {
-  opacity: 0;
   transform: translateX(-100%);
 }
 
 .slide-leave-to {
-  opacity: 0;
   transform: translateX(-100%);
 }
 
 .slide-leave-to.reverse {
-  opacity: 0;
   transform: translateX(100%);
 }
 </style>
