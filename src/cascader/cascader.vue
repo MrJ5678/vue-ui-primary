@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "src/var";
+@import "var";
 
 .cascader {
   display: inline-block;
