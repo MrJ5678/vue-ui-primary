@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import chai, { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import Slides from "@/slides";
-import SlidesItem from '@/slides-item'
+import Slides from "@/slides/slides";
+import SlidesItem from '@/slides/slides-item'
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 

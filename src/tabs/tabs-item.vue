@@ -32,7 +32,7 @@ export default {
     }
   },
   created() {
-    this.eventBus && this.eventBus.$on('update:selected', (name, vm) => {
+    this.eventBus && this.eventBus.$on('update:selected', (name) => {
       this.active = name === this.name;
     })
   },
