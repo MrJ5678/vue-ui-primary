@@ -15,7 +15,7 @@
       <span @click="onClickPrev">
         <g-icon name="left"></g-icon>
       </span>
-      <span v-for="n in childrenLength" :class="{active: selectedIndex === n - 1}" @click="select(n-1)">
+      <span v-for="n in childrenLength" :key="n" :data-index="n-1" :class="{active: selectedIndex === n - 1}" @click="select(n-1)">
         {{ n }}
       </span>
       <span @click="onClickNext">
@@ -40,6 +40,10 @@ export default {
     autoPlay: {
       type: Boolean,
       default: true
+    },
+    autoPlayDelay: {
+      type: Number,
+      default: 3000
     }
   },
   data() {
@@ -63,7 +67,9 @@ export default {
   },
   mounted() {
     this.updateChildren()
-    this.playAutomatically()
+    if(this.autoPlay) {
+      this.playAutomatically()
+    }
     this.childrenLength = this.items.length
   },
   updated() {
@@ -132,9 +138,9 @@ export default {
         let newIndex = index + 1
 
         this.select(newIndex)
-        this.timerId = setTimeout(run, 3000)
+        this.timerId = setTimeout(run, this.autoPlayDelay)
       }
-      this.timerId = setTimeout(run, 3000)
+      this.timerId = setTimeout(run, this.autoPlayDelay)
     },
     pause() {
       window.clearTimeout(this.timerId)
