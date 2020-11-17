@@ -8,7 +8,7 @@
   </button>
 </template>
 <script>
-import Icon from './icon'
+import Icon from '../icon'
 
 export default {
   name: 'UiButton',
@@ -37,7 +37,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "var";
+@import "src/var";
 
 .g-button {
   display: inline-flex;

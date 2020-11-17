@@ -15,7 +15,7 @@
 // import TabsItem from './tabs-item';
 // import TabsPane from './tabs-pane';
 // import Toast from './toast'
-import Button from './button'
+import Button from './button/button'
 import Cascader from './cascader'
 import Collapse from './collapse'
 import CollapseItem from './collapse-item'

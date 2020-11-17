@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import { mount } from "@vue/test-utils";
-import Button from "@/button";
+import Button from "@/button/button";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
