@@ -7,6 +7,7 @@
 <script>
 export default {
   name: "GNavItem",
+  inject: ['root'],
   props: {
     name: {
       type: String,
@@ -18,8 +19,12 @@ export default {
       selected: false
     }
   },
+  created() {
+    this.root.addItem(this)
+  },
   methods: {
     onClick() {
+      console.log('click');
       this.$emit('add:selected', this.name)
     }
   }

@@ -7,6 +7,11 @@
 <script>
 export default {
   name: "GNav",
+  provide() {
+    return {
+      root: this
+    }
+  },
   props: {
     selected: {
       type: Array,
@@ -17,6 +22,11 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      items: []
+    }
+  },
   mounted() {
     this.updateChildren()
     this.listenToChildren()
@@ -24,16 +34,20 @@ export default {
   updated() {
     this.updateChildren()
   },
-  computed: {
-    items() {
-      return this.$children.filter(vm => vm.$options.name === 'GNavItem')
-    }
-  },
+  // computed: {
+  //   items() {
+  //     return this.$children.filter(vm => vm.$options.name === 'GNavItem')
+  //   }
+  // },
   methods: {
+    addItem(vm) {
+      this.items.push(vm)
+    },
     updateChildren() {
       this.items.forEach(vm => {
         if(this.selected.indexOf(vm.name) >= 0) {
           vm.selected = true
+          console.log(`true: ${vm.name}`)
         } else {
           vm.selected = false
         }
