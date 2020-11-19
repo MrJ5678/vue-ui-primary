@@ -1,5 +1,6 @@
 <template>
   <div class="nav">
+    {{ namePath }}
     <slot></slot>
   </div>
 </template>
@@ -24,7 +25,8 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
+      namePath: []
     }
   },
   mounted() {

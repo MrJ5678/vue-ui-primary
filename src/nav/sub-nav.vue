@@ -1,5 +1,5 @@
 <template>
-  <div class="sub-nav">
+  <div class="sub-nav" :class="{active}" v-click-outside="close">
     <span @click="onClick">
       <slot name="title"></slot>
     </span>
@@ -10,16 +10,43 @@
 </template>
 
 <script>
+import ClickOutside from '../click-outside'
+
 export default {
   name: "GSubNav",
+  inject: ['root'],
+  directives: { ClickOutside },
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      open: false
+      open: false,
+    }
+  },
+  computed: {
+    active() {
+      return this.root.namePath.indexOf(this.name) >= 0 ? true : false
     }
   },
   methods: {
+    close() {
+      this.open = false
+    },
     onClick() {
       this.open = !this.open
+    },
+    updateNamePath() {
+      // this.active = true
+      this.root.namePath.unshift(this.name)
+      if(this.$parent.updateNamePath) {
+        this.$parent.updateNamePath()
+      } else {
+
+      }
     }
   }
 };
@@ -36,6 +63,7 @@ export default {
     vertical-align: top;
     padding: 10px 20px;
   }
+
   &-popover {
     position: absolute;
     top: 100%;
@@ -55,6 +83,24 @@ export default {
     .sub-nav-popover {
       top: 0;
       left: 101%;
+      min-width: 7em;
+    }
+  }
+}
+
+.nav {
+  .sub-nav {
+    &.active {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 2px);
+        border: 1px solid $blue;
+      }
     }
   }
 }

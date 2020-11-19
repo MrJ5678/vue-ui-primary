@@ -24,7 +24,8 @@ export default {
   },
   methods: {
     onClick() {
-      console.log('click');
+      this.root.namePath = []
+      this.$parent.updateNamePath && this.$parent.updateNamePath()
       this.$emit('add:selected', this.name)
     }
   }
@@ -37,6 +38,7 @@ export default {
 .nav-item {
   padding: 10px 20px;
   position: relative;
+
   &.selected {
     &::before {
       content: '';
@@ -55,8 +57,9 @@ export default {
     &.selected {
       background-color: $grey;
       color: $color;
+
       &::before {
-          display: none;
+        display: none;
       }
     }
   }
