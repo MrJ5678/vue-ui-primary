@@ -81,6 +81,7 @@ export default {
   display: flex;
   color: $color;
   border-bottom: 1px solid $grey;
-  cursor: default;;
+  cursor: default;
+  user-select: none;
 }
 </style>
