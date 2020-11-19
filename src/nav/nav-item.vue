@@ -32,10 +32,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "var";
+
 .nav-item {
   padding: 10px 20px;
+  position: relative;
   &.selected {
-    background-color: red;
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: calc(100% - 2px);
+      border: 1px solid $blue;
+    }
+  }
+}
+
+.sub-nav {
+  .nav-item {
+
+    &.selected {
+      background-color: $grey;
+      color: $color;
+      &::before {
+          display: none;
+      }
+    }
   }
 }
 </style>

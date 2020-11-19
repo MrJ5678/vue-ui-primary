@@ -26,8 +26,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "var";
+
 .sub-nav {
   position: relative;
+
   > span {
     display: block;
     vertical-align: top;
@@ -37,14 +40,21 @@ export default {
     position: absolute;
     top: 100%;
     left: 0;
+    margin-top: 4px;
+    min-width: 6em;
     white-space: nowrap;
-    border: 1px solid black;
+    background-color: #fff;
+    box-shadow: 0 0 3px fade-out(black, .8);
+    border-radius: $border-radius;
+    font-size: $small-font-size;
+    color: $color-light;
+    text-align: center;
   }
 
   .sub-nav {
     .sub-nav-popover {
       top: 0;
-      left: 100%;
+      left: 101%;
     }
   }
 }

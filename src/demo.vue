@@ -12,14 +12,15 @@
           <g-nav-item name="qq">qq</g-nav-item>
           <g-sub-nav>
             <template slot="title">手机</template>
-            <g-nav-item name="yidong">移动</g-nav-item>
-            <g-nav-item name="liantong">联通</g-nav-item>
-            <g-nav-item name="dianxin">电信</g-nav-item>
+            <g-nav-item name="cm">移动</g-nav-item>
+            <g-nav-item name="cu">联通</g-nav-item>
+            <g-nav-item name="cn">电信</g-nav-item>
           </g-sub-nav>
         </g-sub-nav>
       </g-sub-nav>
       <g-nav-item name="hire">招聘</g-nav-item>
     </g-nav>
+    我是中文我是中文我是中文我是中文
   </div>
 </template>
 
@@ -59,6 +60,4 @@ html, body {
 body {
   font-size: var(--font-size);
 }
-
-
 </style>

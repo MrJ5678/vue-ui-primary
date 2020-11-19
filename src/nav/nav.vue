@@ -73,8 +73,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "var";
+
 .nav {
   display: flex;
-  border: 1px solid red;
+  color: $color;
+  border-bottom: 1px solid $grey;
+  cursor: default;;
 }
 </style>
