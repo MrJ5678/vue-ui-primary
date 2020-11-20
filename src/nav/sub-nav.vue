@@ -6,9 +6,11 @@
         <g-icon name="right"></g-icon>
       </span>
     </span>
-    <div class="sub-nav-popover" v-show="open">
-      <slot></slot>
-    </div>
+    <transition @enter="enter" @leave="leave" @after-leave="afterLeave" @after-enter="afterEnter">
+      <div class="sub-nav-popover" :class="{vertical}" v-show="open">
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -18,7 +20,7 @@ import Icon from '../icon'
 
 export default {
   name: "GSubNav",
-  inject: ['root'],
+  inject: ['root', 'vertical'],
   directives: { ClickOutside },
   components: {
     'g-icon': Icon
@@ -40,6 +42,37 @@ export default {
     }
   },
   methods: {
+    // beforeEnter(el) {
+    //   el.style.height = 0
+    // },
+    enter(el, done) {
+      // el.style.height = 'auto'
+      let { height } = el.getBoundingClientRect()
+      el.style.height = 0
+      el.getBoundingClientRect()
+      el.style.height = `${ height }px`
+      el.addEventListener('transitionend', () => {
+        done()
+      })
+      // done()
+    },
+    afterEnter(el) {
+      el.style.height = 'auto'
+    },
+    leave(el, done) {
+      let { height } = el.getBoundingClientRect()
+      el.style.height = `${ height }px`
+      el.getBoundingClientRect()
+      el.style.height = 0
+      el.addEventListener('transitionend', () => {
+        done()
+      })
+    },
+    afterLeave(el) {
+      console.log('afterLeave');
+      el.style.height = 'auto'
+      console.log(el.getBoundingClientRect().height);
+    },
     close() {
       this.open = false
     },
@@ -49,7 +82,7 @@ export default {
     updateNamePath() {
       // this.active = true
       this.root.namePath.unshift(this.name)
-      if(this.$parent.updateNamePath) {
+      if (this.$parent.updateNamePath) {
         this.$parent.updateNamePath()
       }
     }
@@ -60,6 +93,8 @@ export default {
 <style lang="scss" scoped>
 @import "var";
 
+.x-enter-active, .x-leave-active {}
+
 .sub-nav {
   position: relative;
 
@@ -67,6 +102,7 @@ export default {
     display: inline-flex;
     vertical-align: top;
     padding: 10px 20px;
+
     .sub-nav-icon {
       display: none;
     }
@@ -85,6 +121,14 @@ export default {
     font-size: $small-font-size;
     color: $color-light;
     //text-align: center;
+    &.vertical {
+      position: static;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      transition: height .3s;
+      overflow: hidden;
+    }
   }
 
   .sub-nav {
@@ -93,20 +137,24 @@ export default {
       left: 101%;
       min-width: 6em;
     }
+
     .sub-nav-label {
       display: flex;
       padding: 10px 10px 10px 20px;
       justify-content: space-between;
       align-items: center;
     }
+
     .sub-nav-icon {
       display: inline-flex;
       margin-left: 1em;
       align-items: center;
-      transition: transform .3s ;
+      transition: transform .3s;
+
       &.open {
         transform: rotate(180deg);
       }
+
       svg {
         fill: $color-light;
       }
