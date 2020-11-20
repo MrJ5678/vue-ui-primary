@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-item" :class="{ selected }" @click="onClick">
+  <div class="nav-item" :class="{ selected, vertical }" @click="onClick">
     <slot></slot>
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script>
 export default {
   name: "GNavItem",
-  inject: ['root'],
+  inject: ['root', 'vertical'],
   props: {
     name: {
       type: String,
@@ -39,27 +39,41 @@ export default {
   padding: 10px 20px;
   position: relative;
 
-  &.selected {
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: calc(100% - 2px);
-      border: 1px solid $blue;
+  &:not(.vertical) {
+    &.selected {
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 2px);
+        border: 1px solid $blue;
+      }
+    }
+  }
+
+  &.vertical {
+    &.selected {
+      color: $blue;
     }
   }
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .sub-nav {
   .nav-item {
+    &:not(.vertical) {
+      &.selected {
+        background-color: $grey;
+        color: $color;
 
-    &.selected {
-      background-color: $grey;
-      color: $color;
-
-      &::before {
-        display: none;
+        &::before {
+          display: none;
+        }
       }
     }
   }

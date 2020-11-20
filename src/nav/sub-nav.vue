@@ -1,8 +1,8 @@
 <template>
-  <div class="sub-nav" :class="{active}" v-click-outside="close">
+  <div class="sub-nav" :class="{active, vertical}" v-click-outside="close">
     <span class="sub-nav-label" @click="onClick">
       <slot name="title"></slot>
-      <span class="sub-nav-icon" :class="{open}">
+      <span class="sub-nav-icon" :class="{open, vertical}">
         <g-icon name="right"></g-icon>
       </span>
     </span>
@@ -158,8 +158,18 @@ export default {
       align-items: center;
       transition: transform .3s;
 
-      &.open {
-        transform: rotate(180deg);
+      &.vertical {
+        transform: rotate(90deg);
+
+        &.open {
+          transform: rotate(270deg);
+        }
+      }
+
+      &:not(.vertical) {
+        &.open {
+          transform: rotate(180deg);
+        }
       }
 
       svg {
@@ -174,13 +184,15 @@ export default {
     &.active {
       position: relative;
 
-      &::before {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: calc(100% - 2px);
-        border: 1px solid $blue;
+      &:not(.vertical) {
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: calc(100% - 2px);
+          border: 1px solid $blue;
+        }
       }
     }
   }

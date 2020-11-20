@@ -1,7 +1,9 @@
 <template>
   <div>
     <g-nav :selected.sync="selected" vertical style="width: 200px; margin: 20px;">
-      <g-nav-item name="home">首页</g-nav-item>
+      <g-nav-item name="home">
+        <a href="https://www.google.com">Google</a>
+      </g-nav-item>
       <g-sub-nav name="about">
         <template slot="title">关于</template>
         <g-nav-item name="culture">企业文化</g-nav-item>
