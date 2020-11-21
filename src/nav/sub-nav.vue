@@ -76,9 +76,9 @@ export default {
       })
     },
     afterLeave(el) {
-      console.log('afterLeave');
+      // console.log('afterLeave');
       el.style.height = 'auto'
-      console.log(el.getBoundingClientRect().height);
+      // console.log(el.getBoundingClientRect().height);
     },
     close() {
       this.open = false
