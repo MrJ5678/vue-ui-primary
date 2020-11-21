@@ -36,8 +36,13 @@ describe("Button", () => {
     expect(href).to.equal("#i-loading");
   });
 
-  xit("icon默认order值为1", () => {
+  it("icon 默认 order 值为1", () => {
+    const elem = document.createElement('div')
+    if (document.body) {
+      document.body.appendChild(elem)
+    }
     let wrapper = mount(Button, {
+      attachTo: elem,
       propsData: {
         icon: "settings"
       }
@@ -48,8 +53,13 @@ describe("Button", () => {
     expect(order).to.eq("1");
   });
 
-  xit("icon传入iconPosition: right 时,可以设置order值为2", () => {
+  it("icon 传入 iconPosition: right 时,可以设置 order 值为2", () => {
+    const elem = document.createElement('div')
+    if (document.body) {
+      document.body.appendChild(elem)
+    }
     let wrapper = mount(Button, {
+      attachTo: elem,
       propsData: {
         icon: "settings",
         iconPosition: "right"
