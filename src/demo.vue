@@ -1,73 +1,53 @@
 <template>
   <div>
-    <g-nav :selected.sync="selected" vertical style="width: 200px; margin: 20px;">
-      <g-nav-item name="home">首页</g-nav-item>
-      <g-sub-nav name="about">
-        <template slot="title">关于</template>
-        <g-nav-item name="culture">企业文化</g-nav-item>
-        <g-nav-item name="developers">开发团队</g-nav-item>
-        <g-sub-nav name="contacts">
-          <template slot="title">联系方式</template>
-          <g-nav-item name="wechat">微信</g-nav-item>
-          <g-nav-item name="qq">qq</g-nav-item>
-          <g-sub-nav name="mobile">
-            <template slot="title">手机</template>
-            <g-nav-item name="cm">移动</g-nav-item>
-            <g-nav-item name="cu">联通</g-nav-item>
-            <g-nav-item name="cn">电信</g-nav-item>
-          </g-sub-nav>
-        </g-sub-nav>
-      </g-sub-nav>
-      <g-nav-item name="hire">招聘</g-nav-item>
-    </g-nav>
-    我是中文我是中文我是中文我是中文
+    {{ selected }}
+    <div style="margin: 20px;">
+      <g-table :columns="columns" :data-source="dataSource" bordered striped :selected-items.sync="selected" :order-by.sync="orderBy" @update:orderBy="x" :loading="loading"></g-table>
+    </div>
 
-    <g-nav :selected.sync="selected" >
-      <g-nav-item name="home">首页</g-nav-item>
-      <g-sub-nav name="about">
-        <template slot="title">关于</template>
-        <g-nav-item name="culture">企业文化</g-nav-item>
-        <g-nav-item name="developers">开发团队</g-nav-item>
-        <g-sub-nav name="contacts">
-          <template slot="title">联系方式</template>
-          <g-nav-item name="wechat">微信</g-nav-item>
-          <g-nav-item name="qq">qq</g-nav-item>
-          <g-sub-nav name="mobile">
-            <template slot="title">手机</template>
-            <g-nav-item name="cm">移动</g-nav-item>
-            <g-nav-item name="cu">联通</g-nav-item>
-            <g-nav-item name="cn">电信</g-nav-item>
-          </g-sub-nav>
-        </g-sub-nav>
-      </g-sub-nav>
-      <g-nav-item name="hire">招聘</g-nav-item>
-    </g-nav>
-
+    <div style="margin: 20px;">
+      <g-table :columns="columns" :data-source="dataSource" bordered compact :striped="false"></g-table>
+    </div>
   </div>
 </template>
 
 <script>
-import Nav from './nav/nav'
-import NavItem from './nav/nav-item'
-import SubNav from './nav/sub-nav'
+import Table from './table'
 
 export default {
   name: "Demo",
   components: {
-    'g-nav': Nav,
-    'g-nav-item': NavItem,
-    'g-sub-nav': SubNav
+    'g-table': Table
   },
   data() {
     return {
-      selected: 'culture'
+      selected: [],
+      columns: [
+        {text: '姓名', field: 'name'},
+        {text: '分数', field: 'score'},
+      ],
+      orderBy: {
+        name: 'asc',
+        score: 'desc'
+      },
+      dataSource: [
+        {id: 1, name: '张三', score: 100},
+        {id: 2, name: '李四', score: 99},
+        {id: 3, name: '王五', score: 98},
+        {id: 4, name: '周六', score: 97},
+        {id: 5, name: '吴七', score: 96},
+        {id: 6, name: '郑八', score: 95},
+      ],
+      loading: false
     }
   },
-  watch: {
-    selected(newValue) {
-      if(newValue === 'home') {
-        alert('hi')
-      }
+  methods: {
+    x() {
+      this.loading = true
+      setTimeout(() => {
+        this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
+        this.loading = false
+      }, 3000)
     }
   }
 };
