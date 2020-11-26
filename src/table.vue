@@ -1,35 +1,37 @@
 <template>
-  <div class="g-table-wrapper">
-    <table class="g-table" :class="{bordered, compact, striped: striped}">
-      <thead>
-        <tr>
-          <th>
-            <input ref="allChecked" type="checkbox" @change="onChangeAllItems" :checked="areAllItemsSelected">
-          </th>
-          <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.field">
-            <div class="g-table-header">
-              {{ column.text }}
-              <span v-if="column.field in orderBy" class="g-table-sorter" @click="changeOrderBy(column.field)">
-                <g-icon name="asc" :class="{active: orderBy[column['field']] === 'asc'}"></g-icon>
-                <g-icon name="desc" :class="{active: orderBy[column['field']] === 'desc'}"></g-icon>
-              </span>
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in dataSource" :key="item.id">
-          <td>
-            <input type="checkbox" @change="onChangeItem(item, index, $event)" :checked="inSelectedItems(item)">
-          </td>
-          <td v-if="numberVisible">{{ index + 1 }}</td>
-          <template v-for="column in columns">
-            <td :key="column.field">{{ item[column.field] }}</td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
+  <div ref="wrapper" class="g-table-wrapper">
+    <div :style="{height, overflow: 'auto'}">
+      <table ref="table" class="g-table" :class="{bordered, compact, striped: striped}">
+        <thead>
+          <tr>
+            <th>
+              <input ref="allChecked" type="checkbox" @change="onChangeAllItems" :checked="areAllItemsSelected">
+            </th>
+            <th v-if="numberVisible">#</th>
+            <th v-for="column in columns" :key="column.field">
+              <div class="g-table-header">
+                {{ column.text }}
+                <span v-if="column.field in orderBy" class="g-table-sorter" @click="changeOrderBy(column.field)">
+                  <g-icon name="asc" :class="{active: orderBy[column['field']] === 'asc'}"></g-icon>
+                  <g-icon name="desc" :class="{active: orderBy[column['field']] === 'desc'}"></g-icon>
+                </span>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in dataSource" :key="item.id">
+            <td>
+              <input type="checkbox" @change="onChangeItem(item, index, $event)" :checked="inSelectedItems(item)">
+            </td>
+            <td v-if="numberVisible">{{ index + 1 }}</td>
+            <template v-for="column in columns">
+              <td :key="column.field">{{ item[column.field] }}</td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div v-if="loading" class="g-table-loading">
       <g-icon name="loading"></g-icon>
     </div>
@@ -45,6 +47,9 @@ export default {
     'g-icon': Icon
   },
   props: {
+    height: {
+      type: [Number ,String]
+    },
     loading: {
       type: Boolean,
       default: false
@@ -114,7 +119,38 @@ export default {
       }
     }
   },
+  mounted() {
+    let table2 = this.$refs.table.cloneNode(true)
+    this.table2 = table2
+    table2.classList.add('g-table-copy')
+    this.updateHeadersWidth()
+    this.$refs.wrapper.appendChild(table2)
+    console.log(this.$refs.wrapper);
+    this.onWindowResize = () => this.updateHeadersWidth()
+    window.addEventListener('resize', this.onWindowResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onWindowResize)
+    this.table2.remove()
+  },
   methods: {
+    updateHeadersWidth() {
+      let tableHead = Array.from(this.$refs.table.children).filter(node => node.tagName.toLowerCase() === 'thead')[0]
+      let tableHead2
+      let table2 = this.table2
+      Array.from(table2.children).map(node => {
+        if(node.tagName.toLowerCase() !== 'thead') {
+          node.remove()
+        }else {
+          tableHead2 = node
+        }
+      })
+      // console.log(table2);
+      Array.from(tableHead.children[0].children).map((th, i) => {
+        const {width} = th.getBoundingClientRect()
+        tableHead2.children[0].children[i].style.width = width + 'px'
+      })
+    },
     changeOrderBy(key) {
       const copy = JSON.parse(JSON.stringify(this.orderBy))
       let oldValue = copy[key]
@@ -153,6 +189,7 @@ export default {
 $grey: darken($grey, 10%);
 .g-table-wrapper {
   position: relative;
+  overflow: auto;
   .g-table {
     width: 100%;
     border-collapse: collapse;
@@ -242,6 +279,13 @@ $grey: darken($grey, 10%);
       height: 100px;
       @include spin;
     }
+  }
+  .g-table-copy {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
   }
 }
 </style>
