@@ -1,83 +1,46 @@
 <template>
-  <div>
-    {{ selected }}
-    <div style="margin: 20px;">
-      <g-table
-          :columns="columns"
-          :data-source="dataSource"
-          bordered
-          striped
-          :selected-items.sync="selected"
-          :order-by.sync="orderBy"
-          @update:orderBy="x"
-          :loading="loading"
-          :height="400"
-          expend-field="description"
-          checkable
-      >
-        <template slot-scope="xxx">
-          <button @click="edit(xxx.item)">编辑</button>
-          <button @click="view(xxx.item)">查看</button>
-        </template>
-      </g-table>
-    </div>
-
-    <!--    <div style="margin: 20px;">-->
-    <!--      <g-table :columns="columns" :data-source="dataSource" bordered compact :striped="false"></g-table>-->
-    <!--    </div>-->
+  <div style="margin: 20px;">
+    {{error}}
+    <br>
+    {{fileList}}
+    <div>只能上传小于 300kb 的 png、jpeg 文件</div>
+    <g-uploader
+        accpet="image/*"
+        method="POST"
+        action="http://127.0.0.1:3000/upload"
+        name="file"
+        :parse-response="parseResponse"
+        :file-list.sync="fileList"
+        @error="error = $event"
+    >
+      <g-button icon="upload">上传</g-button>
+    </g-uploader>
   </div>
 </template>
 
 <script>
-import Table from './table'
+import Uploader from './uploader'
+import Button from '@/button/button'
 
 export default {
   name: "Demo",
   components: {
-    'g-table': Table
+    'g-uploader': Uploader,
+    'g-button': Button
+
   },
   data() {
     return {
-      selected: [],
-      columns: [
-        { text: '姓名', field: 'name', width: 100 },
-        { text: '分数', field: 'score', width: 200 },
-      ],
-      orderBy: {
-        name: 'asc',
-        score: 'desc'
-      },
-      dataSource: [
-        { id: 1, name: '张三', score: 100, description: 'xxx xxxx' },
-        { id: 2, name: '李四', score: 99, description: 'xxx xxxxxxx' },
-        { id: 3, name: '王五', score: 98 },
-        { id: 4, name: '周六', score: 97 },
-        { id: 5, name: '吴七', score: 96 },
-        { id: 6, name: '郑八', score: 95 },
-        { id: 7, name: '张三', score: 94 },
-        { id: 8, name: '李四', score: 93 },
-        { id: 9, name: '王五', score: 92 },
-        { id: 10, name: '周六', score: 91 },
-        { id: 11, name: '吴七', score: 90 },
-        { id: 12, name: '郑八', score: 89 },
-      ],
-      loading: false
+      fileList: [],
+      error: ''
     }
   },
   methods: {
-    x() {
-      this.loading = true
-      setTimeout(() => {
-        this.dataSource = this.dataSource.sort((a, b) => a.score - b.score)
-        this.loading = false
-      }, 3000)
+    parseResponse(response) {
+      let object = JSON.parse(response)
+      let url = `http://127.0.0.1:3000/preview/${object.id}`
+      return url
     },
-    edit(item) {
-      alert(`开始编辑${item.id}`)
-    },
-    view(item) {
-      alert(`开始查看${item.id}`)
-    }
   }
 };
 </script>
@@ -99,4 +62,9 @@ body {
   font-size: var(--font-size);
 }
 
+.g-button {
+  svg {
+    font-size: 1.8em;
+  }
+}
 </style>
